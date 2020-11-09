@@ -17,7 +17,7 @@
 #include "MediaReader.generated.h"
 
 UCLASS(ClassGroup = "Simly", BlueprintType)
-class Simly_API AMediaReader : public AActor
+class SIMLY_API AMediaReader : public AActor
 {
 	GENERATED_UCLASS_BODY()
 	friend class FMediaReaderWorker;

@@ -12,7 +12,7 @@ class UPointCloudInterface : public UInterface
 	GENERATED_BODY()
 };
 
-class Simly_API IPointCloudInterface
+class SIMLY_API IPointCloudInterface
 {
 	GENERATED_BODY()
 

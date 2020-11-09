@@ -27,7 +27,7 @@
 DECLARE_LOG_CATEGORY_EXTERN(LogPointCloud, Log, All);
 
 UCLASS(ClassGroup = "Simly", BlueprintType)
-class Simly_API ARealSenseHandler : public AActor, public IPointCloudInterface
+class SIMLY_API ARealSenseHandler : public AActor, public IPointCloudInterface
 {
 	GENERATED_UCLASS_BODY()
 	friend class FRealSenseHandlerWorker;

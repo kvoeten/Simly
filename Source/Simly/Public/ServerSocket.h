@@ -15,7 +15,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTCPClientSignature, const FString&,
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FForceSensorSignature, FString, Client, FForceSensor, Data);
 
 UCLASS(ClassGroup = "Networking", meta = (BlueprintSpawnableComponent))
-class SOCIALCLOUDS_API UServerSocket : public UActorComponent
+class SIMLY_API UServerSocket : public UActorComponent
 {
 	GENERATED_UCLASS_BODY()
 
