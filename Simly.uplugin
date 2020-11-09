@@ -1,0 +1,39 @@
+{
+	"FileVersion" : 1,
+	"Version" : 1,
+	"VersionName" : "0.0.1",
+	"FriendlyName" : "Simly Sensor Plugin",
+	"Description" : "Enables plug-and play features for Simly prototyping sensors, as well as recording point clouds humans and placing them in a shared virtual world.",
+	"CreatedBy" : "Kaz Voeten",
+	"CreatedByURL" : "https://kazvoeten.com",
+	"DocsURL" : "https://docs.kazvoeten.com/simly",
+	"Category" : "Editor",
+	"CanContainContent" : true,
+	"Modules" :
+	[
+		{
+			"Name" : "Simly",
+			"Type": "Runtime",
+			"LoadingPhase" : "PostConfigInit",
+			"WhitelistPlatforms" : [ "Win64" ]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "RealSense",
+			"Enabled": true
+		},
+		{
+			"Name": "LidarPointCloud",
+			"Enabled": true
+		},
+		{
+			"Name": "MediaCompositing",
+			"Enabled": true
+		},
+		{
+			"Name": "VRExpansionPlugin",
+			"Enabled": true
+		}
+	]
+}
