@@ -8,6 +8,7 @@ public class Simly : ModuleRules
 	public Simly(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
+        bEnableExceptions = true;
 
         PrivateIncludePaths.AddRange(new string[] { Path.Combine(ModuleDirectory, "Private") });
         PublicIncludePaths.AddRange(new string[] { Path.Combine(ModuleDirectory, "Public") });
