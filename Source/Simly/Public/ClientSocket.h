@@ -24,6 +24,15 @@ public:
 		int64 right = 0;
 };
 
+USTRUCT(BlueprintType)
+struct FRotatorSensor
+{
+	GENERATED_USTRUCT_BODY()
+public:
+	UPROPERTY(BlueprintReadOnly, Category = "Sensor Value")
+		int rotation = 0;
+};
+
 class ClientSocket 
 {
 public:
@@ -45,6 +54,7 @@ public:
 
 	// Sensors
 	FForceSensor Force;
+	FRotatorSensor Rotation;
 
 	long UID = -1;
 
@@ -55,10 +65,12 @@ public:
 
 	// Packet handling
 	void ProcessPacket(UServerSocket* server);
+	void SendRotationRequest(int steps);
 	void SendPing();
 
 private:
 	void SendPacket(Buffer OutPacket);
 	void HandlePong(uint32 code);
 	void HandleForceSensor(UServerSocket* server);
+	void HandleRotator(UServerSocket* server);
 };

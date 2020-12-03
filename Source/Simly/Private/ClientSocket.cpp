@@ -34,6 +34,18 @@ void ClientSocket::HandleForceSensor(UServerSocket* server)
 	});
 }
 
+void ClientSocket::HandleRotator(UServerSocket* server)
+{
+	// Create struct with sensor data
+	this->Rotation.rotation = this->RecvBuff.readUInt32_LE();
+
+	// Broadcast result on server object
+	AsyncTask(ENamedThreads::GameThread, [server, this]()
+		{
+			server->OnForceSensorData.Broadcast(this->Address, this->Force);
+		});
+}
+
 void ClientSocket::SendPacket(Buffer OutPacket)
 {
 	if (OutPacket.getBuffer().empty())
@@ -70,6 +82,14 @@ void ClientSocket::SendPing()
 	Buffer OutPacket;
 	OutPacket.writeUInt16_LE(0x01);
 	OutPacket.writeInt32_LE(this->PingNum ^ this->PingKey);
+	this->SendPacket(OutPacket);
+}
+
+void ClientSocket::SendRotationRequest(int steps)
+{
+	Buffer OutPacket;
+	OutPacket.writeUInt16_LE(0x02);
+	OutPacket.writeInt32_LE(steps);
 	this->SendPacket(OutPacket);
 }
 

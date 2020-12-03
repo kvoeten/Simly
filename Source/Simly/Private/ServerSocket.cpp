@@ -241,6 +241,16 @@ void UServerSocket::DisconnectClient(FString ClientAddress /*= TEXT("All")*/, bo
 	}
 }
 
+void UServerSocket::SendRotationRequest(FString client, int steps)
+{
+	TSharedPtr<ClientSocket> Client = Clients[client];
+
+	if (Client.IsValid())
+	{
+		Client->SendRotationRequest(steps);
+	}
+}
+
 void UServerSocket::InitializeComponent()
 {
 	Super::InitializeComponent();

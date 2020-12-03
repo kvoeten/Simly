@@ -13,6 +13,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTCPEventSignature);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTCPMessageSignature, const TArray<uint8>&, Bytes);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FTCPClientSignature, const FString&, Client);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FForceSensorSignature, FString, Client, FForceSensor, Data);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FFRotatorSensorSignature, FString, Client, FRotatorSensor, Data);
 
 UCLASS(ClassGroup = "Networking", meta = (BlueprintSpawnableComponent))
 class SIMLY_API UServerSocket : public UActorComponent
@@ -24,6 +25,9 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "Sensor Events")
 	FForceSensorSignature OnForceSensorData;
+
+	UPROPERTY(BlueprintAssignable, Category = "Sensor Events")
+	FFRotatorSensorSignature OnRotationData;
 
 	/** On message received on the receiving socket. */
 	UPROPERTY(BlueprintAssignable, Category = "TCP Events")
@@ -101,6 +105,12 @@ public:
 	*/
 	UFUNCTION(BlueprintCallable, Category = "TCP Functions")
 	void DisconnectClient(FString ClientAddress = TEXT("All"), bool bDisconnectNextTick = false);
+
+	/**
+	* Send rotation request to specified client.
+	*/
+	UFUNCTION(BlueprintCallable, Category = "TCP Functions")
+	void SendRotationRequest(FString client, int steps);
 
 	virtual void InitializeComponent() override;
 	virtual void UninitializeComponent() override;
