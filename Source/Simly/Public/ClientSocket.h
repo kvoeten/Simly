@@ -29,7 +29,11 @@ struct FRotatorSensor
 {
 	GENERATED_USTRUCT_BODY()
 public:
-	UPROPERTY(BlueprintReadOnly, Category = "Sensor Value")
+	UPROPERTY(BlueprintReadWrite, Category = "Sensor Value")
+		int type = 0;
+	UPROPERTY(BlueprintReadWrite, Category = "Sensor Value")
+		int id = 0;
+	UPROPERTY(BlueprintReadWrite, Category = "Sensor Value")
 		int rotation = 0;
 };
 
@@ -65,7 +69,7 @@ public:
 
 	// Packet handling
 	void ProcessPacket(UServerSocket* server);
-	void SendRotationRequest(int steps);
+	void SendRotationRequest(FRotatorSensor request);
 	void SendPing();
 
 private:

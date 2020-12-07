@@ -110,7 +110,7 @@ public:
 	* Send rotation request to specified client.
 	*/
 	UFUNCTION(BlueprintCallable, Category = "TCP Functions")
-	void SendRotationRequest(FString client, int steps);
+	void SendRotationRequest(FString client, FRotatorSensor request);
 
 	virtual void InitializeComponent() override;
 	virtual void UninitializeComponent() override;

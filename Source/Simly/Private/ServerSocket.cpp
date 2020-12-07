@@ -91,6 +91,13 @@ void UServerSocket::StartListenServer(const int32 InListenPort)
 			{
 				TSharedPtr<ClientSocket> Client = ClientPair.Value;
 
+				// Catch access violation if client got disposed on main thread
+				if (!Client.IsValid() || Client->Socket == nullptr)
+				{
+					ClientsDisconnected.Add(Client);
+					continue;
+				}
+
 				//Did we disconnect? Note that this almost never changed from connected due to engine bug, instead it will be caught when trying to send data
 				ESocketConnectionState ConnectionState = Client->Socket->GetConnectionState();
 				if (ConnectionState != ESocketConnectionState::SCS_Connected)
@@ -241,13 +248,13 @@ void UServerSocket::DisconnectClient(FString ClientAddress /*= TEXT("All")*/, bo
 	}
 }
 
-void UServerSocket::SendRotationRequest(FString client, int steps)
+void UServerSocket::SendRotationRequest(FString client, FRotatorSensor request)
 {
 	TSharedPtr<ClientSocket> Client = Clients[client];
 
 	if (Client.IsValid())
 	{
-		Client->SendRotationRequest(steps);
+		Client->SendRotationRequest(request);
 	}
 }
 

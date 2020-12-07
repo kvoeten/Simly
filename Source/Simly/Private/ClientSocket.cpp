@@ -16,6 +16,9 @@ void ClientSocket::ProcessPacket(UServerSocket* server)
 	case 0x02:
 		HandleForceSensor(server);
 		break;
+	case 0x03:
+		HandleRotator(server);
+		break;
 	}
 }
 
@@ -37,13 +40,15 @@ void ClientSocket::HandleForceSensor(UServerSocket* server)
 void ClientSocket::HandleRotator(UServerSocket* server)
 {
 	// Create struct with sensor data
-	this->Rotation.rotation = this->RecvBuff.readUInt32_LE();
+	this->Rotation.type = this->RecvBuff.readUInt16_LE();
+	this->Rotation.id = this->RecvBuff.readUInt16_LE();
+	this->Rotation.rotation = this->RecvBuff.readInt32_LE();
 
 	// Broadcast result on server object
 	AsyncTask(ENamedThreads::GameThread, [server, this]()
-		{
-			server->OnForceSensorData.Broadcast(this->Address, this->Force);
-		});
+	{
+		server->OnRotationData.Broadcast(this->Address, this->Rotation);
+	});
 }
 
 void ClientSocket::SendPacket(Buffer OutPacket)
@@ -85,11 +90,13 @@ void ClientSocket::SendPing()
 	this->SendPacket(OutPacket);
 }
 
-void ClientSocket::SendRotationRequest(int steps)
+void ClientSocket::SendRotationRequest(FRotatorSensor request)
 {
 	Buffer OutPacket;
 	OutPacket.writeUInt16_LE(0x02);
-	OutPacket.writeInt32_LE(steps);
+	OutPacket.writeUInt16_LE(request.type);
+	OutPacket.writeUInt16_LE(request.id);
+	OutPacket.writeInt32_LE(request.rotation);
 	this->SendPacket(OutPacket);
 }
 
