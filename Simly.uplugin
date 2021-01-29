@@ -6,7 +6,7 @@
 	"Description" : "Enables plug-and play features for Simly prototyping sensors, as well as recording point clouds humans and placing them in a shared virtual world.",
 	"CreatedBy" : "Kaz Voeten",
 	"CreatedByURL" : "https://kazvoeten.com",
-	"DocsURL" : "https://docs.kazvoeten.com/simly",
+	"DocsURL" : "https://simly.kazvoeten.com/",
 	"Category" : "Editor",
 	"CanContainContent" : true,
 	"Modules" :
